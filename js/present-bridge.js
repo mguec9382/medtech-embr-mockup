@@ -160,15 +160,15 @@
       }
       const confirming = m.act && (m.act.ok || m.act.submit);
       const tgt = resolve(m.act), stale = !confirming && [...document.querySelectorAll('dialog[open]')].length && (m.act.tab || m.act.nav || m.act.user || (tgt && ![...document.querySelectorAll('dialog[open]')].some((d) => d.contains(tgt))));
-      let ok = false;
+      let ok = false, before = 0;
       const finish = (tries) => {
         const open = m.act && m.act.ok && document.querySelector('#sign-dlg[open]');
         if (open && tries > 0) return setTimeout(() => finish(tries - 1), 150);
         // Ergebnis nach dem Bestätigen kurz sichtbar lassen
-        setTimeout(() => { ch.postMessage({ app: appId, t: 'done', ok: ok && !open, n: m.n }); mark(); }, confirming ? 1800 : 400);
+        setTimeout(() => { ch.postMessage({ app: appId, t: 'done', ok: ok && !open, n: m.n }); mark(); }, confirming ? 1800 : document.querySelectorAll('dialog[open]').length > before ? 1800 : 400);
       };
       // Vor dem Bestätigen bleibt die Maske sichtbar, ebenso vor dem Schließen einer alten Maske
-      setTimeout(() => { ok = perform(m.act); setTimeout(() => finish(10), 250); }, confirming ? 1200 : stale ? 1000 : 0);
+      setTimeout(() => { before = document.querySelectorAll('dialog[open]').length; ok = perform(m.act); setTimeout(() => finish(10), 250); }, confirming ? 1200 : stale ? 1000 : 0);
     } else if (m.t === 'reset') {
       const b = document.querySelector('#reset, #reset-btn');
       if (b) b.click();

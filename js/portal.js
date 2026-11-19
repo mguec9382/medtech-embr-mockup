@@ -17,7 +17,7 @@
       regs: ['21 CFR 11', 'EU-MDR Anh. II/III', 'ISO 13485 §7.5', 'Annex 11'], kpi: 'Freigabezeit je Charge'
     },
     {
-      id: 'capa', group: 'quality', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'CAPA & Abweichungen', status: 'konzept',
+      id: 'capa', group: 'quality', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'CAPA & Abweichungen', status: 'mockup',
       short: 'Maßnahmenverfolgung mit Fristen, Eskalation und Wirksamkeitsprüfung.',
       pain: 'Maßnahmen in Excel und E-Mail, Fristen werden übersehen, Wirksamkeitsprüfung fehlt.',
       idea: 'Abweichung → Ursachenanalyse → Maßnahme → Wirksamkeit als geführter Workflow mit Fristen-Ampel und Eskalation.',
@@ -26,7 +26,7 @@
       regs: ['ISO 13485 §8.5.2', '21 CFR 820.100'], kpi: 'Überfällige CAPAs, Durchlaufzeit'
     },
     {
-      id: 'change', group: 'quality', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Änderungsmanagement', status: 'konzept',
+      id: 'change', group: 'quality', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Änderungsmanagement', status: 'mockup',
       short: 'Änderungsanträge mit Impact-Analyse und Freigabe-Workflow.',
       pain: 'Freigaben per E-Mail, Auswirkung auf Stücklisten, MBR und Zulassung unklar.',
       idea: 'Antrag mit automatischer Where-used-Analyse, Bewertung durch Fachbereiche, versionierte Freigabe.',
@@ -35,7 +35,7 @@
       regs: ['ISO 13485 §7.3.9', 'MDR Art. 10'], kpi: 'Durchlaufzeit je Änderung'
     },
     {
-      id: 'supplier', group: 'quality', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Lieferanten & Wareneingang', status: 'konzept',
+      id: 'supplier', group: 'quality', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Lieferanten & Wareneingang', status: 'mockup',
       short: 'Mobile Wareneingangsprüfung, Zertifikatsüberwachung, Lieferantenbewertung.',
       pain: 'Zertifikate laufen ab, Materialzeugnisse fehlen, Lieferantenaudits sind aufwendig.',
       idea: 'Scan beim Wareneingang, Zertifikatsablage mit Ablaufwarnung, Bewertung aus Reklamationen und Lieferperformance.',
@@ -44,7 +44,7 @@
       regs: ['ISO 13485 §7.4', 'MDR Art. 10 (11)'], kpi: 'Quote qualifizierter Lieferanten'
     },
     {
-      id: 'recall', group: 'market', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'Rückverfolgung & Rückruf (FSCA)', status: 'konzept',
+      id: 'recall', group: 'market', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'Rückverfolgung & Rückruf (FSCA)', status: 'mockup',
       short: 'Von der Charge zu Lager, Kunden und Seriennummern in Minuten.',
       pain: 'Ein Rückruf dauert Tage, Kundenlisten je Charge sind nicht schnell verfügbar.',
       idea: 'Rückrufszenario: Charge wählen → Bestand, Lieferungen und Kunden sehen → Sperre und Kundenschreiben anstoßen.',
@@ -53,7 +53,7 @@
       regs: ['MDR Art. 89', 'MEDDEV 2.12-1', '21 CFR 806'], kpi: 'Zeit Charge → Kundenliste'
     },
     {
-      id: 'pms', group: 'market', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'Reklamationen & Vigilanz', status: 'konzept',
+      id: 'pms', group: 'market', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'Reklamationen & Vigilanz', status: 'mockup',
       short: 'Feldmeldungen erfassen, Meldepflicht bewerten, Fristen überwachen.',
       pain: 'Meldefristen werden verpasst, Bewertungen sind inkonsistent, Daten liegen in Silos.',
       idea: 'Strukturierte Erfassung mit Entscheidungshilfe zur Meldepflicht, Fristen-Timer und Verknüpfung zu Charge und CAPA.',
@@ -62,7 +62,7 @@
       regs: ['MDR Art. 87–92', 'ISO 13485 §8.2.2'], kpi: 'Einhaltung Meldefristen'
     },
     {
-      id: 'calibration', group: 'ops', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Prüfmittel & Kalibrierung', status: 'konzept',
+      id: 'calibration', group: 'ops', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Prüfmittel & Kalibrierung', status: 'mockup',
       short: 'Prüfmittel scannen, Kalibrierstatus prüfen, überfällige Geräte sperren.',
       pain: 'Prüfmittel abgelaufen, Nachweis im Audit fehlt, Sperre erfolgt manuell.',
       idea: 'Scan vor Nutzung zeigt Status; überfällige Prüfmittel blockieren den Prüfschritt im eMBR.',
@@ -72,7 +72,7 @@
       regs: ['ISO 13485 §7.6', '21 CFR 820.72'], kpi: 'Prüfmittel außerhalb Frist'
     },
     {
-      id: 'training', group: 'ops', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Schulung & Befähigung', status: 'konzept',
+      id: 'training', group: 'ops', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Schulung & Befähigung', status: 'mockup',
       short: 'Befähigungsmatrix, die Arbeitsschritte ohne gültige Schulung sperrt.',
       pain: 'Wer was darf, ist lückenhaft dokumentiert; Nachweis im Audit aufwendig.',
       idea: 'Schulungsstatus je Mitarbeiter und Tätigkeit, Warnung vor Ablauf, Prüfung der Befähigung bei der Signatur.',
@@ -82,7 +82,7 @@
       regs: ['ISO 13485 §6.2', '21 CFR 820.25'], kpi: 'Schritte ohne gültige Befähigung'
     },
     {
-      id: 'cleanroom', group: 'ops', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'Reinraum & Umgebung', status: 'konzept',
+      id: 'cleanroom', group: 'ops', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'Reinraum & Umgebung', status: 'mockup',
       short: 'Rundgänge am Tablet, Grenzwertalarm und Trendauswertung.',
       pain: 'Papierprotokolle und späte Reaktion auf Grenzwertverletzungen.',
       idea: 'Digitale Messrundgänge, Trend je Raum, automatische Abweichung bei Überschreitung.',
@@ -91,7 +91,7 @@
       regs: ['ISO 14644', 'ISO 13485 §7.5.2'], kpi: 'Reaktionszeit auf Grenzwert'
     },
     {
-      id: 'audit', group: 'ops', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'Audit-Readiness', status: 'konzept',
+      id: 'audit', group: 'ops', icon: 'assets/icons/BC_Life-Sciences.svg', title: 'Audit-Readiness', status: 'mockup',
       short: 'Nachweise je Charge, Prozess oder Lieferant auf Knopfdruck.',
       pain: 'Auditvorbereitung bindet Wochen; Nachweise liegen in vielen Systemen.',
       idea: 'Auditmodus mit Lesezugriff, Nachweispaketen je Charge und Prüfpfad-Export.',
@@ -100,7 +100,7 @@
       regs: ['ISO 13485 §8.2.4', 'MDSAP'], kpi: 'Vorbereitungsaufwand je Audit'
     },
     {
-      id: 'sterile', group: 'market', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Sterilisation & Lohnfertigung', status: 'konzept',
+      id: 'sterile', group: 'market', icon: 'assets/icons/BC_Process-Manufacturing.svg', title: 'Sterilisation & Lohnfertigung', status: 'mockup',
       short: 'Dienstleister-Portal für Chargendaten und Freigabe.',
       pain: 'Chargenfreigabe beim Dienstleister ist ein Medienbruch (Papier, PDF, E-Mail).',
       idea: 'Externe Partner erfassen Zyklusdaten und Zertifikate; Eingang löst Prüfung und Freigabe im eMBR aus.',
@@ -110,18 +110,19 @@
     }
   ];
 
+  APPS.forEach((a) => { if (!a.href) a.href = 'app.html?id=' + a.id; });
+
   const $ = (s, r = document) => r.querySelector(s);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-  const state = { q: '', status: 'all' };
+  const state = { q: '' };
 
   function matches(a) {
-    if (state.status !== 'all' && a.status !== state.status) return false;
     const hay = [a.title, a.short, a.pain, a.idea, ...a.bc, ...a.cosmo, ...a.regs].join(' ').toLowerCase();
     return hay.includes(state.q.toLowerCase());
   }
 
   function tile(a) {
-    const tag = a.status === 'mockup' ? '<span class="tag live">Mockup verfügbar</span>' : '<span class="tag">Konzept</span>';
+    const tag = a.id === 'embr' ? '<span class="tag live">Ausgebautes Mockup</span>' : '<span class="tag live">Mockup</span>';
     const chips = [...a.cosmo.map((c) => `<span class="chip cosmo">${esc(c.split(' (')[0])}</span>`), '<span class="chip anyfy">Anyfy</span>', '<span class="chip bc">Business Central</span>'].join('');
     return `<button class="tile" type="button" data-id="${a.id}">
       <div class="tile-top"><img src="${a.icon}" alt="" width="40" height="40">${tag}</div>
@@ -156,20 +157,13 @@
       <div class="two"><div><h4>Regelwerke</h4>${list(a.regs, '')}</div><div><h4>Steuerungskennzahl</h4><p>${esc(a.kpi)}</p></div></div>
       <p class="muted small">Zuordnung der Produkte und Regelwerke ist ein Entwurf und vor Kundeneinsatz zu prüfen.</p>`;
     const go = $('#d-open');
-    go.hidden = !a.href;
-    if (a.href) go.href = a.href;
+    go.href = a.href;
     $('#detail').showModal();
   }
 
   function init() {
     $('#stat-total').textContent = APPS.length;
-    $('#stat-mock').textContent = APPS.filter((a) => a.status === 'mockup').length;
     $('#q').addEventListener('input', (e) => { state.q = e.target.value; render(); });
-    document.querySelectorAll('[data-status]').forEach((b) => b.addEventListener('click', () => {
-      state.status = b.dataset.status;
-      document.querySelectorAll('[data-status]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-      render();
-    }));
     $('#groups').addEventListener('click', (e) => { const t = e.target.closest('.tile'); if (t) open(t.dataset.id); });
     $('#d-close').addEventListener('click', () => $('#detail').close());
     $('#theme').addEventListener('click', (e) => {

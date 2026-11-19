@@ -61,3 +61,7 @@ tests/              Tests der Kernlogik
 ## Companion-Portal
 
 `portal.html` zeigt im Stil des COSMO-Vertriebsportals Kacheln für MedTech-Companion-Apps (Anyfy + Business Central + COSMO-Branchenprodukte). Nur eMBR/eDHR ist als Mockup verfügbar, die übrigen Kacheln sind Konzepte; Produkt- und Normzuordnung ist ein Entwurf (`js/portal.js`).
+
+### Companion-Mockups
+
+Alle Kacheln im Portal öffnen ein klickbares Mockup (`app.html?id=<id>`). Die generische Engine liegt in `js/companion.js`, die Spezifikationen je App (Daten, Regeln, Aktionen, Integrationen) in `js/companion-apps.js`. Daten sind Beispieldaten, Aufrufe an BC, COSMO-Produkte und Anyfy werden simuliert; Zuordnungen zu Normen und Produkten sind ein Entwurf.

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Companion-App | COSMO CONSULT</title>
+  <link rel="icon" href="assets/icons/cosmo-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/portal.css">
+  <link rel="stylesheet" href="css/companion.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="portal.html"><img src="assets/cosmo-logo-horizontal-weiss-gold.png" alt="COSMO CONSULT" width="200"><span id="app-name">Companion-App</span></a>
+    <div class="actions">
+      <a class="kbd" href="portal.html">← Portal</a>
+      <button id="reset" class="kbd" type="button">Demo zurücksetzen</button>
+    </div>
+  </header>
+  <main class="wrap app" id="app"></main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="form-dlg">
+    <form method="dialog" id="form">
+      <header><h2 id="form-title"></h2><button type="button" class="x" id="form-x" aria-label="Schließen">×</button></header>
+      <div id="form-fields" class="fields"></div>
+      <footer><button type="button" class="btn" id="form-cancel">Abbrechen</button><button type="submit" class="btn primary">Bestätigen</button></footer>
+    </form>
+  </dialog>
+  <script src="js/companion.js"></script>
+  <script src="js/companion-apps.js"></script>
+  <script>CC.run(new URLSearchParams(location.search).get('id'));</script>
+</body>
+</html>

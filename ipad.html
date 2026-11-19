@@ -15,8 +15,10 @@
   </style>
 </head>
 <body>
-  <div class="stage" id="stage"><div class="ipad"><iframe src="index.html" title="eMBR App"></iframe></div></div>
+  <div class="stage" id="stage"><div class="ipad"><iframe id="f" src="index.html" title="App"></iframe></div></div>
   <script>
+    const src = new URLSearchParams(location.search).get('src');
+    if (src && /^(app|index)\.html/.test(src)) document.getElementById('f').src = src;
     function fit() {
       const s = Math.min(innerWidth / 1260, innerHeight / 900, 1);
       document.getElementById('stage').style.transform = 'translate(-50%, -50%) scale(' + s + ')';

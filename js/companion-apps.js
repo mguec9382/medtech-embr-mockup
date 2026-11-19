@@ -105,7 +105,7 @@
             apply: (r, e) => { const u = e.usage.filter((x) => x.item === r.item); r.impact = `${u.length} Objekte`; r.status = 'Impact-Analyse'; return ev(S_.BC, `Where-used für ${r.item}: ${u.length} Stücklisten/Pläne, ${u.filter((x) => x.open !== '–').length} mit offenen Aufträgen`); }
           },
           { label: 'Zur Bewertung', when: (r) => r.status === 'Impact-Analyse', apply: (r) => { r.status = 'Bewertung'; return ev(S_.ANY, `Bewertungsaufgaben an Qualität, Produktion und Regulatory für ${r.id} erstellt`); } },
-          { label: 'Freigeben & signieren', when: (r) => r.status === 'Bewertung', fields: [{ key: 'pw', label: 'Passwort (Signatur, simuliert)', type: 'password' }], apply: (r) => { r.status = 'Freigegeben'; return [ev(S_.ANY, `${r.id} signiert und freigegeben`), ev(S_.BC, `Neue Version für ${r.item} zur Zertifizierung angelegt`)]; } },
+          { label: 'Freigeben & signieren', when: (r) => r.status === 'Bewertung', apply: (r) => { r.status = 'Freigegeben'; return [ev(S_.ANY, `${r.id} signiert und freigegeben`), ev(S_.BC, `Neue Version für ${r.item} zur Zertifizierung angelegt`)]; } },
           { label: 'Ablehnen', danger: true, when: (r) => r.status === 'Bewertung', fields: [{ key: 'g', label: 'Begründung' }], apply: (r, e, v) => { r.status = 'Entwurf'; return ev(S_.ANY, `${r.id} zurückgewiesen: ${v.g}`); } }
         ],
         add: {

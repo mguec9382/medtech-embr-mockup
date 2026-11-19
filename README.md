@@ -65,3 +65,13 @@ tests/              Tests der Kernlogik
 ### Companion-Mockups
 
 Alle Kacheln im Portal öffnen ein klickbares Mockup (`app.html?id=<id>`). Die generische Engine liegt in `js/companion.js`, die Spezifikationen je App (Daten, Regeln, Aktionen, Integrationen) in `js/companion-apps.js`. Daten sind Beispieldaten, Aufrufe an BC, COSMO-Produkte und Anyfy werden simuliert; Zuordnungen zu Normen und Produkten sind ein Entwurf.
+
+Steuerung in allen Companion-Mockups (`js/companion.js`, Regeln in `js/companion-governance.js`):
+
+- **Human in the Loop:** Das System schlägt nur vor. Jede Aktion zeigt erst eine Vorschau der Aufrufe an BC, COSMO-Produkte und Anyfy und wird erst nach Bestätigung ausgeführt.
+- **Rollen:** Benutzerwechsel oben rechts; nicht berechtigte Aktionen sind gesperrt, der Auditor darf nur lesen.
+- **E-Signatur:** Kritische Schritte verlangen Re-Authentifizierung (Demo-Passwort `1234`) und die Bedeutung der Signatur; Fehlversuche werden protokolliert.
+- **Vier-Augen-Prinzip:** Wer an einem Vorgang beteiligt war, darf ihn nicht selbst freigeben.
+- **Prüfpfad:** Hash-Kette (SHA-256) mit Integritätsprüfung und simulierter Manipulation, CSV-Export.
+- **Benachrichtigungen:** Glocke im Menüband mit offenen Entscheidungen und Änderungen anderer Benutzer.
+- iPad-Ansicht: `ipad.html?src=app.html?id=<id>`.

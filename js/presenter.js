@@ -35,7 +35,7 @@
       (s.say || []).map((t) => '<p class="say">' + linkTerms(t) + '</p>').join('') +
       (A.length ? '<h3>Bedienung im Mockup (rot umrandet)</h3><ol class="acts">' + A.map((a, i) => {
         const cls = i < ai ? 'done' : i === ai ? 'cur' : '';
-        const st = i === ai ? (found === false ? '<span class="st bad">nicht gefunden</span>' : found ? '<span class="st">markiert</span>' : '') : '';
+        const st = i === ai ? (found === false ? '<span class="st bad">nicht gefunden – „Ausführen“ startet den Schritt neu; falls schon ausgeführt: Überspringen oder Demo zurücksetzen</span>' : found ? '<span class="st">markiert</span>' : '') : '';
         return '<li class="act ' + cls + '"><span class="l">' + esc(a.l) + '</span>' + st + '</li>';
       }).join('') + '</ol>' : '') +
       '<div class="bar"><button class="btn" id="prev">← Zurück</button>' + (A[ai] ? '<button class="btn run" id="run">Ausführen ▶</button><button class="btn" id="skip">Überspringen</button>' : '') + '<button class="btn primary" id="next">Nächster Schritt →</button></div>' +
@@ -61,6 +61,7 @@
 
   function go(i) { found = null; si = Math.max(0, Math.min(app().steps.length - 1, i)); ai = 0; draw(); }
   function run() {
+    if (found === false && ai > 0) { ai = 0; found = null; draw(); return; }
     const a = acts()[ai];
     if (!a) return;
     ch.postMessage({ t: 'do', app: id, act: a, n: ai });

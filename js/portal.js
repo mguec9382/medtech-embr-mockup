@@ -1,3 +1,4 @@
+const ICONS = {"embr": "<path d=\"M9 3h6v2H9z\"/><path d=\"M7 5H5v16h14V5h-2\"/><path d=\"m9 13 2 2 4-4\"/>", "capa": "<path d=\"M21 12a9 9 0 1 1-3-6.7\"/><path d=\"M21 4v5h-5\"/><path d=\"M12 8v4l2.5 2\"/>", "change": "<path d=\"M7 4v12a3 3 0 0 0 3 3h7\"/><circle cx=\"7\" cy=\"4\" r=\"2\"/><path d=\"m14 16 3 3-3 3\"/>", "supplier": "<path d=\"M3 7h11v9H3z\"/><path d=\"M14 10h4l3 3v3h-7\"/><circle cx=\"7\" cy=\"18\" r=\"2\"/><circle cx=\"17\" cy=\"18\" r=\"2\"/>", "recall": "<path d=\"M3 12a9 9 0 1 0 3-6.7\"/><path d=\"M3 4v5h5\"/><path d=\"M12 8v5\"/><path d=\"M12 16h.01\"/>", "pms": "<path d=\"M4 5h16v11H9l-5 4z\"/><path d=\"M12 8v3\"/><path d=\"M12 13.5h.01\"/>", "calibration": "<path d=\"m3 17 14-14 4 4L7 21z\"/><path d=\"m8 12 2 2M11 9l2 2M14 6l2 2\"/>", "training": "<path d=\"m2 9 10-5 10 5-10 5z\"/><path d=\"M6 11.5V16c3 2.5 9 2.5 12 0v-4.5\"/>", "cleanroom": "<path d=\"M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z\"/><path d=\"M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5\"/>", "audit": "<circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m21 21-5.5-5.5\"/><path d=\"m8 10.5 2 2 3.5-4\"/>", "sterile": "<path d=\"M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>"};
 (function () {
   const GROUPS = [
     { id: 'quality', name: 'Qualität & Produktion', color: 'var(--grp-primary)' },
@@ -125,7 +126,7 @@
     const tag = a.id === 'embr' ? '<span class="tag live">Mockup</span>' : '<span class="tag live">Mockup</span>';
     const chips = [...a.cosmo.map((c) => `<span class="chip cosmo">${esc(c.split(' (')[0])}</span>`), '<span class="chip anyfy">Anyfy</span>', '<span class="chip bc">Business Central</span>'].join('');
     return `<button class="tile" type="button" data-id="${a.id}">
-      <div class="tile-top"><img src="${a.icon}" alt="" width="40" height="40">${tag}</div>
+      <div class="tile-top"><svg class="ico" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[a.id]}</svg>${tag}</div>
       <h3>${esc(a.title)}</h3><p>${esc(a.short)}</p>
       <div class="chips">${chips}</div></button>`;
   }

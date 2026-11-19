@@ -64,4 +64,4 @@ dialog footer { padding: var(--space-2) var(--space-3); border-top: 1px solid va
 .btn:hover { text-decoration: none; border-color: var(--cc-gold); }
 @media (max-width: 800px) { .hero, .two, .arch { grid-template-columns: 1fr; } .top .brand span { display: none; } }
 .group .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gc); }
-.tile-top img { background: var(--ink); border-radius: var(--radius-control); padding: 4px; width: 44px; height: 44px; }
+.tile-top .ico { background: var(--ink); color: var(--gold, #c9a24b); border-radius: var(--radius-control); padding: 8px; width: 48px; height: 48px; }

@@ -48,7 +48,7 @@
     { req: 'Rückverfolgbarkeit Charge/Los/Serie', source: 'ISO 13485 §7.5.9, MDR Art. 25', feature: 'Vorwärts- und Rückwärtsverfolgung', screen: '#/trace', status: 'mock', note: '' },
     { req: 'Geräteakte je Charge (DHR) mit Freigabe', source: 'ISO 13485 §7.5.1, 21 CFR 820.184', feature: 'Review-by-Exception, QA-Freigabe, DHR-Export mit Hash', screen: '#/release', status: 'mock', note: '' },
     { req: 'Lesbare Kopien für Inspektionen', source: '21 CFR 11.10(b)', feature: 'DHR-Druckansicht und Export', screen: '#/dhr/BR-2026-0476', status: 'mock', note: 'Ziel: PDF/A in Immutable Storage' },
-    { req: 'UDI und Identifikation', source: 'MDR Art. 27, ISO 13485 §7.5.8', feature: 'UDI-DI/PI im DHR, Etikettenabgleich als Prüfschritt', screen: '#/dhr/BR-2026-0476', status: 'mock', note: 'GS1-/HIBCC-Format später' },
+    { req: 'UDI und Identifikation', source: 'MDR Art. 27, ISO 13485 §7.5.8', feature: 'UDI-DI/PI aus BC (COSMO UDI) im DHR, Etikettenabgleich als Prüfschritt', screen: '#/dhr/BR-2026-0476', status: 'mock', note: 'GS1-/HIBCC-Format später' },
     { req: 'Aufbewahrung (≥ 10 Jahre, Implantate 15)', source: 'MDR Anh. IX, ISO 13485 §4.2.5', feature: 'Archiv als unveränderlicher Speicher', screen: '#/system', status: 'verify', note: 'Architekturentscheidung offen' },
     { req: 'Computerisierte-Systeme-Validierung', source: 'ISO 13485 §4.1.6, GAMP 5, FDA CSA', feature: 'Validierungsplan, IQ/OQ/PQ, Traceability-Matrix', screen: '#/system', status: 'process', note: '' },
     { req: 'Lieferantenbewertung Plattform', source: 'ISO 13485 §7.4', feature: 'Audit COSMO/Anyfy/Microsoft', screen: '#/system', status: 'process', note: '' },
@@ -69,6 +69,11 @@
     { no: 'FA-101241', mbrId: 'MBR-3305', qty: 60, lot: 'L26-0485' },
     { no: 'FA-101242', mbrId: 'MBR-2210', qty: 300, lot: 'L26-0486' },
   ];
+
+  // Simulierte Prüfergebnisse aus COSMO QA in Business Central, je Los.
+  E.BC_QA = {
+    'L26-0481': { inspection: 'QI-26-0731', status: 'Abgeschlossen', results: { ra: 0.84, defects: 0 } },
+  };
 
   E.DECISIONS = [
     'Zielmärkte: nur EU oder auch US (FDA/QMSR)?',
@@ -105,15 +110,15 @@
           { id: 'ptemp', name: 'Temperatur', unit: '°C', min: 50, max: 60, target: 55 },
           { id: 'ptime', name: 'Einwirkzeit', unit: 'min', min: 28, max: 35, target: 30 },
         ] },
-      { no: 6, title: 'Endkontrolle (Stichprobe)', type: 'inspection', ref: 'WI-QC-305', verify: true,
-        instruction: 'Stichprobe nach Prüfplan prüfen und Ergebnisse erfassen.',
+      { no: 6, title: 'Endkontrolle (Stichprobe)', type: 'inspection', ref: 'WI-QC-305', verify: true, qaSource: 'COSMO QA',
+        instruction: 'Die Prüfung wird in Business Central (COSMO QA) durchgeführt. Das Ergebnis wird hier nur übernommen und angezeigt.',
         params: [
           { id: 'ra', name: 'Rauheit Ra', unit: 'µm', min: 0, max: 0.8, target: 0.6 },
           { id: 'defects', name: 'Sichtfehler (Anzahl)', unit: 'Stk', min: 0, max: 0, target: 0, critical: true },
         ] },
-      { no: 7, title: 'Verpackung und UDI-Etikett', type: 'packaging', ref: 'SOP-PKG-021', verify: true,
+      { no: 7, title: 'Verpackung und UDI-Etikett', type: 'packaging', ref: 'SOP-PKG-021', verify: true, udiSource: 'COSMO UDI',
         instruction: 'Etikettenabgleich und Verpackung nach Vorgabe.',
-        checks: ['UDI-Etikett (GTIN, LOT, Verfall) gegen Auftrag abgeglichen', 'Etiketten-Reconciliation: ausgegeben = verbraucht + vernichtet', 'Sterilbarriere unbeschädigt'] },
+        checks: ['UDI-Etikett (GTIN, LOT, Verfall) gegen die UDI-Daten aus BC (COSMO UDI) abgeglichen', 'Etiketten-Reconciliation: ausgegeben = verbraucht + vernichtet', 'Sterilbarriere unbeschädigt'] },
     ];
   }
 

@@ -103,7 +103,7 @@
         el('h2', { class: 'dhr-title' }, m.title),
         table(['Feld', 'Wert'], [
           ['Batch Record', b.id], ['Los / Seriennummernkreis', b.lot], ['Menge', `${b.qty} Stk`], ['BC-Fertigungsauftrag', b.bcOrder],
-          ['MBR (Snapshot)', `${m.id} v${b.mbrVersion}`], ['UDI-DI / UDI-PI', `${m.udiDi} / (21)${b.lot}`], ['Klassifizierung', m.cls], ['Fertigungsstart', fmt(b.startedAt)],
+          ['MBR (Snapshot)', `${m.id} v${b.mbrVersion}`], ['UDI-DI / UDI-PI (BC, COSMO UDI)', `${m.udiDi} / (21)${b.lot}`], ['Klassifizierung', m.cls], ['Fertigungsstart', fmt(b.startedAt)],
         ].map((r) => ({ cells: r }))),
         el('h2', {}, 'Herstellschritte'),
         table(['Nr.', 'Schritt', 'Material / Equipment', 'Messwerte', 'Signaturen'], S.stepsOf(b).map((st, i) => {

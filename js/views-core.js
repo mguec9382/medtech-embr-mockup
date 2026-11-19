@@ -248,13 +248,23 @@
         const v = r.values[p.id];
         const ps = S.paramState(p, v);
         const dev = S.get().deviations.find((d) => r.deviations.includes(d.id) && d.paramId === p.id);
-        const input = el('input', { type: 'text', inputmode: 'decimal', class: `value-input ${ps === 'oob' ? 'bad' : ps === 'ok' ? 'good' : ''}`, 'aria-label': `${p.name} in ${p.unit}`, value: v === undefined ? '' : String(v), disabled: !editable,
+        const input = el('input', { type: 'text', inputmode: 'decimal', class: `value-input ${ps === 'oob' ? 'bad' : ps === 'ok' ? 'good' : ''}`, 'aria-label': `${p.name} in ${p.unit}`, value: v === undefined ? '' : String(v), disabled: !editable || !!st.qaSource,
           onchange: (e) => { const res = S.setValue(b, i, p.id, e.target.value); toast(res.msg || 'Wert erfasst', res.ok && !res.msg ? 'ok' : 'bad'); E.rerender(); } });
         return { cells: [el('span', {}, p.name, p.critical ? [' ', badge('CTQ', 'bad')] : null), `${p.min}–${p.max} ${p.unit}`, el('div', { class: 'row' }, input, p.unit),
           ps === 'ok' ? badge('In Grenzen', 'ok') : ps === 'oob' ? badge('Außerhalb', 'bad') : badge('Offen', ''),
-          dev ? el('a', { href: '#/deviations' }, dev.id) : ps === 'oob' && S.can('deviation.create') && s === 'active'
+          dev ? el('a', { href: '#/deviations' }, dev.id) : ps === 'oob' && !st.qaSource && S.can('deviation.create') && s === 'active'
             ? el('button', { type: 'button', class: 'btn small danger', onclick: () => deviationDialog(b, i, p) }, 'Abweichung anlegen') : null] };
       })));
+    }
+
+    if (st.qaSource && s === 'active') {
+      node.append(el('div', { class: 'row' },
+        el('button', { type: 'button', class: 'btn', disabled: !editable, onclick: () => { const res = S.importQaResult(b, i); toast(res.msg, res.ok ? 'ok' : 'bad'); E.rerender(); } }, `Prüfergebnis aus BC (${st.qaSource}) abrufen`),
+        el('span', { class: 'muted small' }, 'Messwerte werden in Business Central erfasst, Grenzwertverletzungen erzeugen hier eine Abweichung.')));
+    }
+
+    if (st.udiSource) {
+      node.append(el('div', { class: 'notice' }, `UDI-Daten (UDI-DI ${S.mbr(b.mbrId).udiDi}, UDI-PI (21)${b.lot}) stammen aus Business Central (${st.udiSource}). Das eMBR gleicht nur das Etikett ab.`));
     }
 
     if (s === 'active' && !S.can('execute')) {

@@ -113,3 +113,21 @@ test('Anyfy-Zielmodell deckt die Seed-Daten ab', async () => {
   const names = new Set(Object.keys(E.ANYFY.classes));
   for (const p of E.ANYFY.pages) assert.ok(p.klass === null || names.has(p.klass), p.route);
 });
+
+test('QA-Ergebnis kommt aus BC und erzeugt bei Grenzwertverletzung eine Abweichung', () => {
+  E.store.init();
+  E.store.reset();
+  const s = E.store;
+  const b = s.batch('BR-2026-0481');
+  const i = 5;
+  b.exec.forEach((r, k) => { if (k < i) r.signs.push({ userId: 'u1', user: 'Anna Weber', role: 'operator', meaning: 'Ausgeführt', ts: 'x' }, { userId: 'u2', user: 'Tom Keller', role: 'verifier', meaning: 'Verifiziert', ts: 'x' }); });
+  s.setUser('u1');
+  assert.equal(s.setValue(b, i, 'ra', '0.5').ok, false);
+  const before = s.get().deviations.length;
+  const res = s.importQaResult(b, i);
+  assert.equal(res.ok, true);
+  assert.equal(b.exec[i].values.ra, 0.84);
+  assert.equal(s.get().deviations.length, before + 1);
+  assert.equal(s.importQaResult(b, i).ok, true);
+  assert.equal(s.get().deviations.length, before + 1);
+});

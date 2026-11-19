@@ -22,6 +22,8 @@ npm test           # Tests der Kernlogik (Node 20+)
 
 Testdaten: Chargen `TI-26-118` (frei), `TI-26-097` (gesperrt), `TI-25-044` (abgelaufen). Equipment `EQ-ULS-02` hat überfällige Kalibrierung. Der Stichtag ist fest auf `2026-11-19` gesetzt.
 
+Qualitätsprüfungen (Endkontrolle) und UDI-Daten liegen in Business Central (COSMO QA, COSMO UDI). Das eMBR übernimmt das QA-Ergebnis nur (`Prüfergebnis aus BC abrufen`, z. B. `BR-2026-0481` Schritt 6: Ra 0,84 µm löst automatisch eine Abweichung aus) und zeigt UDI-DI/PI schreibgeschützt an.
+
 ## Was das Mockup zeigt
 
 | Bereich | Konzept |

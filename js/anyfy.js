@@ -9,7 +9,7 @@
     classes: {
       EmbrUser: { seed: 'users', props: ['id', 'name', 'role', 'roleLabel'], note: 'Spiegel der Anyfy-Identität (Auth Service), Rollen als Berechtigungsgruppen' },
       EmbrEquipment: { seed: 'equipment', props: ['id', 'cls', 'name', 'calDue', 'qualified'], mapping: 'BC Fixed Asset / Work Center' },
-      EmbrMbr: { seed: 'mbrs', props: ['id', 'title', 'product', 'cls', 'udiDi', 'steps', 'versions'], mapping: 'BC Production BOM / Routing' },
+      EmbrMbr: { seed: 'mbrs', props: ['id', 'title', 'product', 'cls', 'steps', 'versions'], mapping: 'BC Production BOM / Routing; UDI-DI/PI nur lesend aus COSMO UDI' },
       EmbrBatchRecord: { seed: 'batches', props: ['id', 'mbrId', 'mbrVersion', 'bcOrder', 'lot', 'qty', 'startedAt', 'exec'], mapping: 'BC Production Order' },
       EmbrDeviation: { seed: 'deviations', props: ['id', 'batchId', 'stepNo', 'severity', 'status', 'description', 'action'] },
       EmbrOutboxMessage: { seed: 'outbox', props: ['id', 'type', 'target', 'status', 'key'], note: 'Idempotenzschlüssel `key` je BC-Buchung' },
@@ -19,6 +19,7 @@
       { name: 'embr.mbr.transition', kind: 'CP Function', does: 'Versionsübergang Entwurf → Prüfung → Freigabe → Wirksam, je Person nur eine Signatur', perm: 'author | review | approve' },
       { name: 'embr.batch.createFromOrder', kind: 'CP Function', does: 'Batch Record aus BC-Fertigungsauftrag und wirksamer MBR-Version erzeugen', perm: 'execute' },
       { name: 'embr.step.execute', kind: 'CP Function', does: 'Material-, Equipment- und Grenzwertprüfung, Abweichungspflicht, Signatur Ausführung', perm: 'execute' },
+      { name: 'embr.step.importQaResult', kind: 'CP Function', does: 'Prüfergebnis aus COSMO QA (BC) übernehmen, Grenzwertverletzung erzeugt Abweichung', perm: 'execute' },
       { name: 'embr.step.verify', kind: 'CP Function', does: 'Vier-Augen: Verifizierer ≠ Ausführender', perm: 'verify' },
       { name: 'embr.deviation.close', kind: 'CP Function', does: 'QA-Bewertung und Schließen, hebt Chargensperre auf', perm: 'deviation.close' },
       { name: 'embr.batch.release', kind: 'CP Function', does: 'Review by Exception, QA-Freigabe, DHR-Hash, Outbox-Eintrag Qualitätsstatus', perm: 'release' },
@@ -27,6 +28,8 @@
     ],
     typeMappings: [
       { name: 'BC Production Order → EmbrBatchRecord', direction: 'lesend', via: 'Anyfy Core Interface (BC Web Service)' },
+      { name: 'BC COSMO QA Prüfung → Prüfergebnis je Los und Merkmal', direction: 'lesend', via: 'Anyfy Core Interface' },
+      { name: 'BC COSMO UDI → UDI-DI/PI je Artikel und Los', direction: 'lesend', via: 'Anyfy Core Interface' },
       { name: 'BC Item Tracking → Los (Status, Verfall)', direction: 'lesend', via: 'Anyfy Core Interface' },
       { name: 'EmbrOutboxMessage → BC Journal / Item Tracking', direction: 'schreibend', via: 'Anyfy Core Interface, OAuth 2.0 Client Credentials' },
     ],

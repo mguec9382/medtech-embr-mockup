@@ -231,6 +231,7 @@
   function setValue(b, i, paramId, raw) {
     const err = activeEditable(b, i);
     if (err) return fail(err);
+    if (stepsOf(b)[i].qaSource) return fail('Messwerte stammen aus BC (COSMO QA) und können hier nicht erfasst werden');
     const p = stepsOf(b)[i].params.find((x) => x.id === paramId);
     const text = String(raw).replace(',', '.').trim();
     if (text === '' || Number.isNaN(Number(text))) return fail('Bitte eine Zahl eingeben');
@@ -247,23 +248,51 @@
     return `DEV-${String(max + 1).padStart(4, '0')}`;
   }
 
-  function createDeviation(b, i, paramId, form) {
-    if (!can('deviation.create')) return fail('Rolle darf keine Abweichungen anlegen');
+  function addDeviation(b, i, paramId, form, createdBy) {
     const st = stepsOf(b)[i];
     const p = (st.params || []).find((x) => x.id === paramId);
     const value = b.exec[i].values[paramId];
     const d = {
       id: nextDevId(), batchId: b.id, stepNo: st.no, paramId, value, severity: form.severity, status: 'Offen',
       description: form.description || `${p.name} ${value} ${p.unit} außerhalb ${p.min}–${p.max}`, action: form.action || '',
-      createdBy: user().name, createdAt: new Date().toISOString(),
+      createdBy, createdAt: new Date().toISOString(),
     };
     state.deviations.push(d);
     b.exec[i].deviations.push(d.id);
     audit('Abweichung angelegt', d.id, `${b.id}, Schritt ${st.no}: ${p.name} ${value} ${p.unit} (${d.severity})`);
     queue('Qualitätsstatus', `BC Item Tracking Los ${b.lot}`, 'Sperre bis Abweichungsbewertung', `hold:${b.id}`);
+    return d;
+  }
+
+  function createDeviation(b, i, paramId, form) {
+    if (!can('deviation.create')) return fail('Rolle darf keine Abweichungen anlegen');
+    const d = addDeviation(b, i, paramId, form, user().name);
     save();
     return ok(`${d.id} angelegt, Charge gesperrt`);
   }
+
+  // Prüfergebnis aus COSMO QA (BC) übernehmen. Grenzwertverletzungen erzeugen automatisch eine Abweichung.
+  function importQaResult(b, i) {
+    const err = activeEditable(b, i);
+    if (err) return fail(err);
+    const st = stepsOf(b)[i];
+    if (!st.qaSource) return fail('Schritt hat keine QA-Prüfung in BC');
+    const qa = E.BC_QA[b.lot];
+    if (!qa || qa.status !== 'Abgeschlossen') return fail(`In BC (${st.qaSource}) liegt für Los ${b.lot} noch kein abgeschlossenes Prüfergebnis vor`);
+    const r = b.exec[i];
+    st.params.forEach((p) => { if (qa.results[p.id] !== undefined) r.values[p.id] = qa.results[p.id]; });
+    audit('QA-Ergebnis aus BC übernommen', `${b.id} · Schritt ${st.no}`, `${qa.inspection} (${st.qaSource}), Los ${b.lot}`);
+    const created = [];
+    st.params.forEach((p) => {
+      const hasDev = state.deviations.some((d) => r.deviations.includes(d.id) && d.paramId === p.id);
+      if (paramState(p, r.values[p.id]) === 'oob' && !hasDev) {
+        created.push(addDeviation(b, i, p.id, { severity: p.critical ? 'Major' : 'Minor', description: `${st.qaSource} ${qa.inspection}: ${p.name} ${r.values[p.id]} ${p.unit} außerhalb ${p.min}–${p.max}` }, st.qaSource));
+      }
+    });
+    save();
+    return ok(created.length ? `${created.map((d) => d.id).join(', ')} automatisch angelegt, Charge gesperrt` : `Ergebnis ${qa.inspection} übernommen`);
+  }
+
 
   function signStep(b, i, meaning) {
     const st = stepsOf(b)[i];
@@ -374,6 +403,6 @@
     init, get, save, reset, user, userById, can, setUser, audit, verifyChain, tamper,
     mbr, batch, deviation, equipmentById, stepsOf, devsOf, hasSign, stepDone, activeIndex, stepState, batchStatus,
     paramState, equipmentIssue, lotIssue, stepBlockers, signers, recordHash: (b) => recordHash(state, b),
-    setCheck, scanLot, setEquipment, setValue, createDeviation, signStep, closeDeviation, releaseBatch, retryOutbox, mbrTransition, startBatch,
+    setCheck, scanLot, setEquipment, setValue, createDeviation, importQaResult, signStep, closeDeviation, releaseBatch, retryOutbox, mbrTransition, startBatch,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

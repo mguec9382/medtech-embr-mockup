@@ -36,9 +36,9 @@
       (A.length ? '<h3>Bedienung im Mockup (rot umrandet)</h3><ol class="acts">' + A.map((a, i) => {
         const cls = i < ai ? 'done' : i === ai ? 'cur' : '';
         const st = i === ai ? (found === false ? '<span class="st bad">nicht gefunden</span>' : found ? '<span class="st">markiert</span>' : '') : '';
-        return '<li class="act ' + cls + '"><span class="l">' + esc(a.l) + '</span>' + st + (i === ai ? '<button class="btn run" id="run">Ausführen ▶</button><button class="btn" id="skip">Überspringen</button>' : '') + '</li>';
+        return '<li class="act ' + cls + '"><span class="l">' + esc(a.l) + '</span>' + st + '</li>';
       }).join('') + '</ol>' : '') +
-      '<div class="bar"><button class="btn" id="prev">← Zurück</button><button class="btn primary" id="next">Nächster Schritt →</button></div>' +
+      '<div class="bar"><button class="btn" id="prev">← Zurück</button>' + (A[ai] ? '<button class="btn run" id="run">Ausführen ▶</button><button class="btn" id="skip">Überspringen</button>' : '') + '<button class="btn primary" id="next">Nächster Schritt →</button></div>' +
       '<h3>Notizen</h3><textarea id="notes" aria-label="Notizen"></textarea>' +
       (qa ? '<h3>Mögliche Rückfragen</h3><dl class="qa">' + qa + '</dl>' : '');
     $('#notes').value = localStorage.getItem('pres-note:' + key()) || '';
@@ -54,22 +54,21 @@
   }
 
   function hl() {
-    found = null;
     const a = acts()[ai];
     ch.postMessage(a ? { t: 'hl', app: id, act: a } : { t: 'clear', app: id });
   }
   function draw() { drawSteps(); drawStage(); hl(); }
 
-  function go(i) { si = Math.max(0, Math.min(app().steps.length - 1, i)); ai = 0; draw(); }
+  function go(i) { found = null; si = Math.max(0, Math.min(app().steps.length - 1, i)); ai = 0; draw(); }
   function run() {
     const a = acts()[ai];
     if (!a) return;
     ch.postMessage({ t: 'do', app: id, act: a, n: ai });
   }
-  function advance() { ai++; doneActs[key()] = Math.max(doneActs[key()] || 0, ai); draw(); }
+  function advance() { found = null; ai++; doneActs[key()] = Math.max(doneActs[key()] || 0, ai); draw(); }
 
   function setApp(n) {
-    id = n; si = 0; ai = 0;
+    id = n; si = 0; ai = 0; found = null;
     $('#title').textContent = 'Referentenansicht · ' + TITLES[id];
     $('#app-sel').value = id;
     history.replaceState(null, '', '?id=' + id);

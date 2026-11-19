@@ -25,14 +25,15 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 syste
 .pitch { color: var(--mute); border-bottom: 1px solid var(--line); padding-bottom: .8rem; margin-bottom: 1rem; }
 .say { font-size: 1.35rem; line-height: 1.55; margin: 0 0 .8rem; }
 .term { color: var(--gold); border-bottom: 1px dotted var(--gold); cursor: help; background: none; border-top: 0; border-left: 0; border-right: 0; font: inherit; padding: 0; }
-.acts { list-style: none; padding: 0; margin: 1.2rem 0; display: grid; gap: .4rem; }
+.acts { list-style: none; padding: 0; margin: .6rem 0; display: grid; gap: .4rem; }
 .act { display: flex; gap: .6rem; align-items: center; padding: .5rem .7rem; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
 .act.cur { border-color: var(--red); box-shadow: 0 0 0 2px rgb(255 77 85 / .35); }
 .act.done { opacity: .55; }
 .act .l { flex: 1; }
 .act .st { font-size: .8rem; color: var(--mute); }
 .act .st.bad { color: var(--red); }
-.bar { display: flex; gap: .6rem; flex-wrap: wrap; margin: .8rem 0; }
+.bar { display: flex; gap: .6rem; flex-wrap: wrap; margin: .6rem 0; align-items: center; }
+.bar .primary { margin-left: auto; }
 textarea { width: 100%; min-height: 5rem; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: .6rem; font: inherit; }
 h3 { font-size: .9rem; text-transform: uppercase; letter-spacing: .06em; color: var(--mute); margin: 1.4rem 0 .4rem; }
 .qa dt { font-weight: 600; margin-top: .6rem; }

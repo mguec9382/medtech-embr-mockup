@@ -122,7 +122,7 @@
   }
 
   function tile(a) {
-    const tag = a.id === 'embr' ? '<span class="tag live">Ausgebautes Mockup</span>' : '<span class="tag live">Mockup</span>';
+    const tag = a.id === 'embr' ? '<span class="tag live">Mockup</span>' : '<span class="tag live">Mockup</span>';
     const chips = [...a.cosmo.map((c) => `<span class="chip cosmo">${esc(c.split(' (')[0])}</span>`), '<span class="chip anyfy">Anyfy</span>', '<span class="chip bc">Business Central</span>'].join('');
     return `<button class="tile" type="button" data-id="${a.id}">
       <div class="tile-top"><img src="${a.icon}" alt="" width="40" height="40">${tag}</div>

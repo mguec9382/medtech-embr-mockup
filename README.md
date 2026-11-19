@@ -42,6 +42,7 @@ index.html          Shell (Header, Navigation, Skripte)
 css/                CI-Variablen und Styles, Quicksand
 js/sha256.js        Synchrones SHA-256 (Hash-Kette, DHR-Hash)
 js/data.js          Fiktive Seed-Daten, Rollen, Compliance-Matrix
+js/anyfy.js         Anyfy-Zielmodell (Ontologie-Klassen, Functions, Type-Mappings, Pages), Ansicht System
 js/store.js         Domänenlogik, Rollen/SoD, Audit-Kette, Outbox (localStorage)
 js/ui.js            DOM-Helfer ohne innerHTML, Dialoge, Toasts
 js/views-*.js       Ansichten

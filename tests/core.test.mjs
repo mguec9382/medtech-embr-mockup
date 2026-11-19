@@ -101,3 +101,15 @@ test('Chargenstart nur mit wirksamer MBR-Version und als Snapshot', () => {
   assert.equal(s.batchStatus(b), 'In Ausführung');
   assert.equal(s.verifyChain().ok, true);
 });
+
+test('Anyfy-Zielmodell deckt die Seed-Daten ab', async () => {
+  await import('../js/anyfy.js');
+  const seed = E.createSeed();
+  for (const [name, c] of Object.entries(E.ANYFY.classes)) {
+    const rows = seed[c.seed];
+    assert.ok(Array.isArray(rows) && rows.length, `${name}: keine Seed-Daten`);
+    for (const p of c.props) assert.ok(p in rows[0], `${name}.${p} fehlt im Seed`);
+  }
+  const names = new Set(Object.keys(E.ANYFY.classes));
+  for (const p of E.ANYFY.pages) assert.ok(p.klass === null || names.has(p.klass), p.route);
+});

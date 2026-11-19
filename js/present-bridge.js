@@ -60,8 +60,25 @@
     return true;
   }
 
+  // Liegt das Ziel hinter offenen Masken (anderes Thema), werden diese geschlossen.
+  function closeStale(a) {
+    const open = [...document.querySelectorAll('dialog[open]')];
+    if (!open.length) return;
+    const el = resolve(a);
+    if (a.tab || a.nav || a.user || (el && !open.some((d) => d.contains(el)))) open.reverse().forEach((d) => d.close());
+  }
+
+  function typePin(el, val, done) {
+    el.focus();
+    let i = 0;
+    const t = setInterval(() => {
+      setValue(el, val.slice(0, ++i));
+      if (i >= val.length) { clearInterval(t); setTimeout(done, 700); }
+    }, 220);
+  }
+
   function perform(a) {
-    if (a.tab || a.nav || a.user) { const c = document.querySelector('dialog[open] [data-close]'); if (c) c.click(); }
+    closeStale(a);
     const el = resolve(a);
     if (!el) return false;
     if (a.user) return setValue(el, a.user);
@@ -132,9 +149,15 @@
     if (m.t === 'lock') { beat = Date.now(); setLock(!!m.on); return; }
     if (m.t === 'ping') { ch.postMessage({ app: appId, t: 'ready' }); return; }
     if (m.app && m.app !== appId) return;
-    if (m.t === 'hl') { cur = m.act || null; mark(); }
+    if (m.t === 'hl') { cur = m.act || null; if (cur) closeStale(cur); mark(); }
     else if (m.t === 'clear') { cur = null; clear(); }
     else if (m.t === 'do') {
+      if (m.act && m.act.pin) {
+        const el = resolve(m.act);
+        if (!el) { ch.postMessage({ app: appId, t: 'done', ok: false, n: m.n }); return; }
+        typePin(el, m.act.pin === true ? '1234' : String(m.act.pin), () => { ch.postMessage({ app: appId, t: 'done', ok: true, n: m.n }); mark(); });
+        return;
+      }
       const ok = perform(m.act);
       const finish = (tries) => {
         const open = m.act && m.act.ok && document.querySelector('#sign-dlg[open]');

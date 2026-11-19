@@ -111,7 +111,7 @@ const ICONS = {"embr": "<path d=\"M9 3h6v2H9z\"/><path d=\"M7 5H5v16h14V5h-2\"/>
     }
   ];
 
-  APPS.forEach((a) => { if (!a.href) a.href = 'app.html?id=' + a.id; });
+  APPS.forEach((a) => { if (!a.href) a.href = 'app.html?id=' + a.id; a.href = 'ipad.html?src=' + encodeURIComponent(a.href); });
 
   const $ = (s, r = document) => r.querySelector(s);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);

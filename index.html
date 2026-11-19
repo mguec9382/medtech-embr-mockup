@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eMBR / eDHR Companion App · Mockup</title>
+  <meta name="description" content="Klickbares Mockup einer Master-Batch-Record-App für Medizintechnik als Companion App in COSMO Anyfy">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="app-header cc-no-print">
+    <div class="bar">
+      <a class="brand" href="#/dashboard" aria-label="COSMO CONSULT, zur Übersicht">
+        <svg viewBox="0 0 256 256" width="40" height="40" role="img" aria-label="COSMO CONSULT" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#B39C4D" d="m216.99,160.32l-66.09-96.72c-5.3-7.75-14.08-12.39-23.47-12.39s-18.17,4.64-23.47,12.39l-66.09,96.71c-5.95,8.7-6.59,19.98-1.67,29.3,4.92,9.32,14.6,15.16,25.14,15.16h132.18c10.54,0,20.22-5.83,25.14-15.16,4.92-9.32,4.28-20.6-1.67-29.3Zm-25.87-2.2c-2.03,8.26-8.46,14.72-16.71,16.78l-75.73,18.93c-8.25,2.06-16.97-.61-22.64-6.95-5.68-6.33-7.38-15.29-4.43-23.27l24.02-64.88c2.63-7.1,8.6-12.45,15.95-14.29,7.35-1.84,15.13.07,20.8,5.11l51.72,45.95c6.36,5.65,9.07,14.35,7.04,22.61Z"/>
+          <circle fill="#B39C4D" cx="212.4" cy="80.01" r="19.2"/>
+        </svg>
+        <span class="name"><b>COSMO CONSULT</b><span>The Power of People</span></span>
+      </a>
+      <span class="app-title">eMBR / eDHR Companion · Medizintechnik</span>
+      <div class="header-tools">
+        <label for="user-select">Angemeldet als (Rolle wechseln)
+          <select id="user-select"></select>
+        </label>
+        <button type="button" class="btn secondary small" id="reset-btn">Daten zurücksetzen</button>
+        <button type="button" class="btn secondary small" id="theme-btn" aria-label="Dunkles Design aktivieren"></button>
+      </div>
+    </div>
+  </header>
+  <nav class="app-nav cc-no-print" aria-label="Hauptnavigation"><ul id="nav-list"></ul></nav>
+  <div class="mock-banner cc-no-print"><p><strong>MOCKUP:</strong> Alle Daten sind fiktiv. Keine validierte Software, keine echte Anbindung an Business Central oder Anyfy. Zustand liegt nur im Browser (localStorage).</p></div>
+  <main id="view"></main>
+  <footer class="cc-no-print">
+    COSMO CONSULT · Konzept-Mockup für eine eMBR/eDHR Companion App in COSMO Anyfy. Regulatorische Zuordnung zur Bestätigung durch RA/QA.
+  </footer>
+  <script src="js/sha256.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/views-core.js"></script>
+  <script src="js/views-qa.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -178,5 +178,8 @@ footer { max-width: 1200px; margin: 0 auto; padding: var(--space-2); color: var(
 .pres-hl { outline: 4px solid #e01b24 !important; outline-offset: 3px; border-radius: 6px; box-shadow: 0 0 0 8px rgb(224 27 36 / .25) !important; animation: pres-pulse 1.2s ease-in-out infinite; position: relative; z-index: 5; }
 @keyframes pres-pulse { 50% { box-shadow: 0 0 0 12px rgb(224 27 36 / .1); } }
 @media (prefers-reduced-motion: reduce) { .pres-hl { animation: none; } }
-#pres-lock { position: fixed; left: 10px; bottom: 10px; background: #1d2026; color: #fff; border: 1px solid #e01b24; border-radius: 99px; padding: .3rem .9rem; font-size: .8rem; z-index: 9999; pointer-events: none; }
+#pres-lock { position: fixed; left: 10px; bottom: 10px; background: #1d2026; color: #fff; border: 1px solid #e01b24; border-radius: 99px; padding: .3rem .9rem; font-size: .8rem; z-index: 9999; display: flex; gap: .5rem; align-items: center; cursor: grab; touch-action: none; user-select: none; }
+#pres-lock[hidden] { display: none; }
+#pres-lock button { background: none; border: 0; color: #fff; font-size: 1rem; line-height: 1; cursor: pointer; padding: 0 .2rem; }
+.pres-locked #pres-lock { cursor: grab; }
 .pres-locked body { cursor: not-allowed; }

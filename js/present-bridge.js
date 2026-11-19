@@ -99,12 +99,29 @@
   const banner = document.createElement('div');
   banner.id = 'pres-lock';
   banner.hidden = true;
-  banner.textContent = 'Gesteuert über die Referentenansicht';
+  banner.innerHTML = '<span class="grip" title="Verschieben">⠿ Gesteuert über die Referentenansicht</span><button type="button" aria-label="Hinweis ausblenden">×</button>';
   document.body.appendChild(banner);
-  const setLock = (on) => { locked = on; banner.hidden = !on; document.documentElement.classList.toggle('pres-locked', on); };
+  let dismissed = false;
+  try { const pos = JSON.parse(localStorage.getItem('pres-lock-pos')); if (pos) { banner.style.left = pos.x + 'px'; banner.style.top = pos.y + 'px'; banner.style.bottom = 'auto'; } } catch (e) { /* Standardposition */ }
+  banner.querySelector('button').addEventListener('click', () => { dismissed = true; banner.hidden = true; });
+  banner.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('button')) return;
+    const r = banner.getBoundingClientRect(), dx = e.clientX - r.left, dy = e.clientY - r.top;
+    banner.setPointerCapture(e.pointerId);
+    const mv = (m) => {
+      const x = Math.max(0, Math.min(innerWidth - r.width, m.clientX - dx)), y = Math.max(0, Math.min(innerHeight - r.height, m.clientY - dy));
+      banner.style.left = x + 'px'; banner.style.top = y + 'px'; banner.style.bottom = 'auto';
+    };
+    const up = () => {
+      banner.removeEventListener('pointermove', mv); banner.removeEventListener('pointerup', up);
+      try { localStorage.setItem('pres-lock-pos', JSON.stringify({ x: parseInt(banner.style.left, 10), y: parseInt(banner.style.top, 10) })); } catch (e) { /* ignorieren */ }
+    };
+    banner.addEventListener('pointermove', mv); banner.addEventListener('pointerup', up);
+  });
+  const setLock = (on) => { locked = on; banner.hidden = !on || dismissed; document.documentElement.classList.toggle('pres-locked', on); };
   ['click', 'dblclick', 'mousedown', 'mouseup', 'pointerdown', 'pointerup', 'keydown', 'keyup', 'keypress', 'input', 'change', 'contextmenu', 'touchstart']
     .forEach((n) => addEventListener(n, (e) => {
-      if (!locked || !e.isTrusted) return;
+      if (!locked || !e.isTrusted || (e.target.closest && e.target.closest('#pres-lock'))) return;
       e.stopImmediatePropagation();
       if (e.cancelable) e.preventDefault();
     }, true));

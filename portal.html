@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>MedTech Companion Portal | COSMO CONSULT</title>
+  <link rel="icon" href="assets/icons/cosmo-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="portal.html"><img src="assets/cosmo-logo-horizontal-weiss-gold.png" alt="COSMO CONSULT" width="200"><span>MedTech Companion Portal</span></a>
+    <div class="actions">
+      <a class="kbd" href="ipad.html">iPad-Ansicht</a>
+      <button id="theme" class="kbd" type="button">DUNKEL</button>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <p class="kicker">Medizintechnik · Business Central · COSMO Anyfy</p>
+        <h1>Companion-Apps für die kritischen Punkte der Medizintechnik</h1>
+        <p class="lead">Business Central bleibt das führende System. COSMO-Branchenprodukte wie COSMO QA und COSMO UDI liefern die Fachlogik. Anyfy stellt die schlanken, geführten Apps für Werker, Qualität und Außendienst bereit.</p>
+        <div class="search"><input id="q" type="search" placeholder="Suche nach Thema, Produkt, Norm …" aria-label="Suche"><span class="hint" aria-hidden="true">/</span></div>
+        <div class="seg" role="group" aria-label="Status">
+          <button type="button" data-status="all" aria-pressed="true">Alle</button>
+          <button type="button" data-status="mockup" aria-pressed="false">Mockup</button>
+          <button type="button" data-status="konzept" aria-pressed="false">Konzept</button>
+        </div>
+      </div>
+      <aside class="flow" aria-label="Architektur">
+        <div class="layer anyfy"><b>COSMO Anyfy</b><span>Companion-Apps, Workflows, Audit</span></div>
+        <div class="arrow">↕</div>
+        <div class="layer cosmo"><b>COSMO Branchenprodukte</b><span>COSMO QA · COSMO UDI</span></div>
+        <div class="arrow">↕</div>
+        <div class="layer bc"><b>Business Central</b><span>Produktion, Lager, Einkauf, Service</span></div>
+        <p class="stats"><b id="stat-total"></b> Apps · <b id="stat-mock"></b> als Mockup</p>
+      </aside>
+    </section>
+    <div id="groups"></div>
+  </main>
+  <footer class="foot">Demonstrator mit Beispieldaten. Produkt- und Regelwerkszuordnung als Entwurf.</footer>
+
+  <dialog id="detail" aria-labelledby="d-title">
+    <header><h2 id="d-title"></h2><button id="d-close" type="button" class="x" aria-label="Schließen">×</button></header>
+    <div id="d-body"></div>
+    <footer><a id="d-open" class="btn primary" href="#">Mockup öffnen</a></footer>
+  </dialog>
+  <script src="js/portal.js"></script>
+</body>
+</html>

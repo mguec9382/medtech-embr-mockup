@@ -57,3 +57,7 @@ tests/              Tests der Kernlogik
 - Passwort bei der Signatur wird nur simuliert. Echte Re-Authentifizierung, Audit Trail und E-Signatur müssen gegen die Anyfy-Plattform geklärt werden (siehe Ansicht `System`, Status „Anyfy klären“).
 - Regulatorische Zuordnung ist ein Entwurf und ist mit RA/QA zu bestätigen.
 - Kein Offline-Betrieb, keine echte BC-/Anyfy-Anbindung, kein Archiv.
+
+## Companion-Portal
+
+`portal.html` zeigt im Stil des COSMO-Vertriebsportals Kacheln für MedTech-Companion-Apps (Anyfy + Business Central + COSMO-Branchenprodukte). Nur eMBR/eDHR ist als Mockup verfügbar, die übrigen Kacheln sind Konzepte; Produkt- und Normzuordnung ist ein Entwurf (`js/portal.js`).

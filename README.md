@@ -75,3 +75,12 @@ Steuerung in allen Companion-Mockups (`js/companion.js`, Regeln in `js/companion
 - **Prüfpfad:** Hash-Kette (SHA-256) mit Integritätsprüfung und simulierter Manipulation, CSV-Export.
 - **Benachrichtigungen:** Glocke im Menüband mit offenen Entscheidungen und Änderungen anderer Benutzer.
 - iPad-Ansicht: `ipad.html?src=app.html?id=<id>`.
+
+## Referentenansicht (zweiter Bildschirm)
+
+`presenter.html?id=<app>` (im Portal-Detailfenster: „Referentenansicht“) zeigt je Mockup eine Storyline mit Sprechtext, Zeitplanung, Notizen, möglichen Rückfragen und einem Glossar (Abkürzungen im Text anklickbar).
+
+- „Mockup-Fenster öffnen“ startet das Mockup in der iPad-Ansicht. Beide Fenster sprechen über einen `BroadcastChannel` (gleicher Browser, gleiche Herkunft).
+- Solange die Referentenansicht offen und verbunden ist, ist das Mockup für echte Eingaben gesperrt (Hinweis unten links). Es wird nur über „Ausführen ▶“ bedient; das Zielfeld ist rot umrandet. Ohne Referentenansicht ist das Mockup frei bedienbar.
+- Bedienschritte (`js/presenter-acts.js`) enthalten Vorschau, PIN 1234 und Bestätigung; Human in the Loop bleibt erhalten. „Demo zurücksetzen“ stellt die Beispieldaten wieder her.
+- Tasten: ← / → Schritt wechseln, Enter/Leertaste ausführen.

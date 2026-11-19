@@ -1,0 +1,46 @@
+:root { --bg: #14161a; --panel: #1d2026; --line: #343943; --ink: #eceff4; --mute: #9aa3b2; --gold: #d9b45a; --red: #ff4d55; --ok: #5ec27f; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; height: 100vh; display: flex; flex-direction: column; }
+.top { display: flex; gap: .6rem; align-items: center; padding: .6rem 1rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.top h1 { font-size: 1.1rem; margin: 0; flex: 1; min-width: 12rem; }
+.btn, select, input[type=search] { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: .45rem .8rem; font: inherit; text-decoration: none; cursor: pointer; }
+.btn:hover { border-color: var(--gold); }
+.btn.primary { background: var(--gold); color: #1a1a1a; border-color: var(--gold); font-weight: 600; }
+.btn.run { background: var(--red); border-color: var(--red); color: #fff; font-weight: 600; }
+.btn:focus-visible, select:focus-visible, input:focus-visible, .step:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.chip { padding: .2rem .7rem; border-radius: 99px; font-size: .85rem; border: 1px solid var(--line); }
+.chip.on { color: var(--ok); border-color: var(--ok); }
+.chip.off { color: var(--mute); }
+.clock { font-variant-numeric: tabular-nums; font-size: 1.2rem; color: var(--gold); }
+.grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 17rem 1fr 22rem; }
+.steps, .gloss, .stage { overflow: auto; padding: 1rem; }
+.steps { border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: .4rem; }
+.gloss { border-left: 1px solid var(--line); }
+.step { text-align: left; background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: .6rem .8rem; cursor: pointer; font: inherit; }
+.step small { display: block; color: var(--mute); }
+.step.cur { border-color: var(--gold); background: var(--panel); }
+.step.done small::after { content: " · erledigt"; color: var(--ok); }
+.stage h2 { margin: 0 0 .3rem; font-size: 1.6rem; }
+.meta { color: var(--mute); margin-bottom: 1rem; display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+.pitch { color: var(--mute); border-bottom: 1px solid var(--line); padding-bottom: .8rem; margin-bottom: 1rem; }
+.say { font-size: 1.35rem; line-height: 1.55; margin: 0 0 .8rem; }
+.term { color: var(--gold); border-bottom: 1px dotted var(--gold); cursor: help; background: none; border-top: 0; border-left: 0; border-right: 0; font: inherit; padding: 0; }
+.acts { list-style: none; padding: 0; margin: 1.2rem 0; display: grid; gap: .4rem; }
+.act { display: flex; gap: .6rem; align-items: center; padding: .5rem .7rem; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+.act.cur { border-color: var(--red); box-shadow: 0 0 0 2px rgb(255 77 85 / .35); }
+.act.done { opacity: .55; }
+.act .l { flex: 1; }
+.act .st { font-size: .8rem; color: var(--mute); }
+.act .st.bad { color: var(--red); }
+.bar { display: flex; gap: .6rem; flex-wrap: wrap; margin: .8rem 0; }
+textarea { width: 100%; min-height: 5rem; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: .6rem; font: inherit; }
+h3 { font-size: .9rem; text-transform: uppercase; letter-spacing: .06em; color: var(--mute); margin: 1.4rem 0 .4rem; }
+.qa dt { font-weight: 600; margin-top: .6rem; }
+.qa dd { margin: .1rem 0 0; color: var(--mute); }
+.gloss dl { margin: .8rem 0 0; }
+.gloss dt { font-weight: 700; color: var(--gold); margin-top: .8rem; }
+.gloss dd { margin: .1rem 0 0; font-size: .92rem; color: var(--ink); }
+.gloss dt.hit, .gloss dt.hit + dd { background: rgb(217 180 90 / .18); border-radius: 6px; }
+.chk { display: block; margin-top: .5rem; color: var(--mute); font-size: .9rem; }
+@media (max-width: 1000px) { .grid { grid-template-columns: 1fr; overflow: auto; } .steps { flex-direction: row; overflow-x: auto; } }
+@media print { body { background: #fff; color: #000; height: auto; display: block; } .top, .steps, .bar, .act .btn { display: none; } .grid { display: block; } .stage, .gloss { overflow: visible; } }

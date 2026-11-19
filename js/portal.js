@@ -159,6 +159,9 @@ const ICONS = {"embr": "<path d=\"M9 3h6v2H9z\"/><path d=\"M7 5H5v16h14V5h-2\"/>
       <p class="muted small">Zuordnung der Produkte und Regelwerke ist ein Entwurf und vor Kundeneinsatz zu prüfen.</p>`;
     const go = $('#d-open');
     go.href = a.href;
+    let pv = $('#d-pres');
+    if (!pv) { pv = document.createElement('a'); pv.id = 'd-pres'; pv.className = 'btn'; pv.target = 'ccpres'; pv.textContent = 'Referentenansicht'; go.before(pv); }
+    pv.href = 'presenter.html?id=' + a.id;
     $('#detail').showModal();
   }
 

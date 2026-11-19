@@ -158,14 +158,17 @@
         typePin(el, m.act.pin === true ? '1234' : String(m.act.pin), () => { ch.postMessage({ app: appId, t: 'done', ok: true, n: m.n }); mark(); });
         return;
       }
-      const ok = perform(m.act);
+      const confirming = m.act && (m.act.ok || m.act.submit);
+      const tgt = resolve(m.act), stale = !confirming && [...document.querySelectorAll('dialog[open]')].length && (m.act.tab || m.act.nav || m.act.user || (tgt && ![...document.querySelectorAll('dialog[open]')].some((d) => d.contains(tgt))));
+      let ok = false;
       const finish = (tries) => {
         const open = m.act && m.act.ok && document.querySelector('#sign-dlg[open]');
         if (open && tries > 0) return setTimeout(() => finish(tries - 1), 150);
-        ch.postMessage({ app: appId, t: 'done', ok: ok && !open, n: m.n });
-        mark();
+        // Ergebnis nach dem Bestätigen kurz sichtbar lassen
+        setTimeout(() => { ch.postMessage({ app: appId, t: 'done', ok: ok && !open, n: m.n }); mark(); }, confirming ? 1800 : 400);
       };
-      setTimeout(() => finish(10), 250);
+      // Vor dem Bestätigen bleibt die Maske sichtbar, ebenso vor dem Schließen einer alten Maske
+      setTimeout(() => { ok = perform(m.act); setTimeout(() => finish(10), 250); }, confirming ? 1200 : stale ? 1000 : 0);
     } else if (m.t === 'reset') {
       const b = document.querySelector('#reset, #reset-btn');
       if (b) b.click();
